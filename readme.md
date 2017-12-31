@@ -15,6 +15,6 @@ Implemented sample plugins are:
 > This project refers to an external module of the AndrOBD plugin framework library, 
   which is part of the AndrOBD repository.
   
-> Please clone AndrOBD repository **plugin branch** parallel to this one to have the referred 
+> Please clone [AndrOBD **plugin branch**](https://github.com/fr3ts0n/AndrOBD/tree/plugin) parallel to this one to have the referred 
   library sources of the plugin framework available for extension plugin development.
 
