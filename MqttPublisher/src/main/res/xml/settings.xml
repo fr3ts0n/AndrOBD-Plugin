@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:icon="@android:drawable/ic_menu_manage"
+                  android:title="@string/settings">
+    <PreferenceCategory
+        android:title="@string/mqtt_settings">
+
+        <EditTextPreference
+            android:defaultValue="localhost"
+            android:key="mqtt_hostname"
+            android:title="@string/mqtt_hostname"
+            android:summary="@string/mqtt_hostname_sum"/>
+
+        <EditTextPreference
+            android:defaultValue="1883"
+            android:key="mqtt_port"
+            android:numeric="integer"
+            android:title="@string/ip_port"
+            android:summary="@string/ip_port_sum"/>
+
+        <EditTextPreference
+            android:defaultValue="guest"
+            android:key="username"
+            android:title="@string/user_name"
+            android:summary="@string/user_name_sum"/>
+
+        <EditTextPreference
+            android:defaultValue="guest"
+            android:key="password"
+            android:password="true"
+            android:title="@string/password"
+            android:summary="@string/password_sum"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="mqtt_retain"
+            android:title="@string/mqtt_retain"
+            android:summary="@string/mqtt_retain_sum" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/plugin_settings">
+
+        <EditTextPreference
+            android:key="update_period"
+            android:defaultValue="30"
+            android:numeric="integer"
+            android:summary="@string/update_period_sum"
+            android:title="@string/update_period"/>
+
+        <EditTextPreference
+            android:defaultValue="AndrOBD/"
+            android:key="mqtt_prefix"
+            android:summary="@string/mqtt_prefix_sum"
+            android:title="@string/mqtt_prefix"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

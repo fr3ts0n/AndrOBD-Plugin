@@ -1,0 +1,2 @@
+include ':MqttPublisher', ':CsvLogger', ':PluginHost', ':plugin'
+project(':plugin').projectDir = new File(settingsDir, '../AndrOBD/plugin')

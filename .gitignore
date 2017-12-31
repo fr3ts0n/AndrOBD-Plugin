@@ -1,0 +1,14 @@
+.gradle
+.idea/*/*.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+**/bin
+**/gen
+**/build
+**/gradle
+*~
+*.bak
+*.class
+local.properties
+

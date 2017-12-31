@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ip_port">IP-Port</string>
+    <string name="ip_port_sum">MQTT broker IP-Portnummer</string>
+    <string name="mqtt_hostname">MQTT Hostname</string>
+    <string name="mqtt_hostname_sum">MQTT broker Hostname / IP-Adresse</string>
+    <string name="mqtt_prefix">MQTT Präfix</string>
+    <string name="mqtt_prefix_sum">Präfix für alle MQTT Topics</string>
+    <string name="mqtt_settings">MQTT Einstellugen</string>
+    <string name="password">Passwort</string>
+    <string name="password_sum">MQTT-Broker Login Passwort</string>
+    <string name="plugin_settings">Plugin Einstellungen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="update_period">Aktualisierungszeit</string>
+    <string name="update_period_sum">Zeit [Sekunden] zwischen MQTT Aktualisierungen</string>
+    <string name="user_name">Benutzername</string>
+    <string name="user_name_sum">MQTT-Broker Login Benutzername</string>
+    <string name="mqtt_retain">MQTT retain</string>
+    <string name="mqtt_retain_sum">MQTT retain flag für alle gesendeten Messwerte</string>
+</resources>

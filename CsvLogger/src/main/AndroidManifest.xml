@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.fr3ts0n.androbd.plugin.csv"
+>
+
+    <application android:label="@string/app_name"
+                 android:icon="@mipmap/ic_launcher"
+                 android:roundIcon="@mipmap/ic_launcher_round">
+
+        <service
+            android:name=".CsvDataLogger"
+            android:exported="true" />
+
+        <receiver android:name=".CsvLoggerReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="com.fr3ts0n.androbd.plugin.IDENTIFY" />
+                <category android:name="com.fr3ts0n.androbd.plugin.REQUEST" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>

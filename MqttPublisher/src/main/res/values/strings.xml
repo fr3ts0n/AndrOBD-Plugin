@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name" translatable="false">MqttPublisher Plugin</string>
+    <string name="settings">Plugin Settings</string>
+    <string name="mqtt_settings">MQTT settings</string>
+    <string name="mqtt_hostname">MQTT host name</string>
+    <string name="mqtt_hostname_sum">MQTT broker host name / IP address</string>
+    <string name="ip_port">IP port</string>
+    <string name="ip_port_sum">MQTT broker IP port number</string>
+    <string name="user_name">User name</string>
+    <string name="user_name_sum">MQTT broker login name</string>
+    <string name="password">Password</string>
+    <string name="password_sum">MQTT broker login password</string>
+    <string name="plugin_settings">Plugin settings</string>
+    <string name="update_period">Update period</string>
+    <string name="update_period_sum">Time [seconds] between MQTT updates</string>
+    <string name="mqtt_prefix">MQTT prefix</string>
+    <string name="mqtt_prefix_sum">Prefix of all published MQTT topics</string>
+    <string name="mqtt_retain">MQTT retain</string>
+    <string name="mqtt_retain_sum">MQTT retain flag for all published topics</string>
+</resources>

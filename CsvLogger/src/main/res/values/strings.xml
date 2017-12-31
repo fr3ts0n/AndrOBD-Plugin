@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">CsvLoggerPlugin</string>
+    <string name="class_name" translatable="false">CsvDataLogger</string>
+</resources>
