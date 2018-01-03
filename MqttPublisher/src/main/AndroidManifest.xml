@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.fr3ts0n.androbd.plugin.mqtt"
-          android:versionCode="1"
-          android:versionName="1.0">
-
-    <uses-sdk
-        android:minSdkVersion="9"
-        android:targetSdkVersion="15"/>
+          package="com.fr3ts0n.androbd.plugin.mqtt" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -27,9 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <service
-            android:name=".service.MqttService"
-            android:process=":MqttSubProcess"/>
 
         <service android:name=".MqttPlugin"
                  android:exported="true" />

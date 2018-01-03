@@ -7,8 +7,8 @@ android {
         applicationId 'com.fr3ts0n.androbd.plugin.csv'
         minSdkVersion 15
         targetSdkVersion 16
-        versionCode 1
-        versionName "1.0"
+        versionCode 10000
+        versionName 'V1.0.0'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

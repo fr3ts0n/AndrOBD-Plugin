@@ -8,6 +8,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 16
         vectorDrawables.useSupportLibrary = true
+        versionCode 10000
+        versionName 'V1.0.0'
     }
     buildTypes {
         release {
