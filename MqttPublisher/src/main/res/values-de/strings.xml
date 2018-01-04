@@ -17,4 +17,8 @@
     <string name="user_name_sum">MQTT-Broker Login Benutzername</string>
     <string name="mqtt_retain">MQTT retain</string>
     <string name="mqtt_retain_sum">MQTT retain flag für alle gesendeten Messwerte</string>
+    <string name="data_items">Datenauswahl</string>
+    <string name="data_items_sum">Auswahl der Messdaten zur Publikation auf MQTT</string>
+    <string name="mqtt_qos_sum">MQTT Servicequalität (0-2)</string>
+    <string name="mqtt_qos">MQTT Qos</string>
 </resources>

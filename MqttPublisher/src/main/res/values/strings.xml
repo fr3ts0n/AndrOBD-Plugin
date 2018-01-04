@@ -17,4 +17,13 @@
     <string name="mqtt_prefix_sum">Prefix of all published MQTT topics</string>
     <string name="mqtt_retain">MQTT retain</string>
     <string name="mqtt_retain_sum">MQTT retain flag for all published topics</string>
+    <string name="mqtt_qos">MQTT Qos</string>
+    <string name="mqtt_qos_sum">MQTT Quality of service (0-2)</string>
+    <string name="data_items">Data items</string>
+    <string name="data_items_sum">Select data items to be published to MQTT</string>
+    <string-array name="mqtt_qos">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

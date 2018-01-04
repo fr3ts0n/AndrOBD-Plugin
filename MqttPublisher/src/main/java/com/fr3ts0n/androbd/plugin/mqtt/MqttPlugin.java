@@ -1,8 +1,12 @@
 package com.fr3ts0n.androbd.plugin.mqtt;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.ListPreference;
+import android.preference.MultiSelectListPreference;
 import android.preference.PreferenceManager;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import com.fr3ts0n.androbd.plugin.Plugin;
@@ -16,6 +20,7 @@ import org.eclipse.paho.client.mqttv3.MqttTopic;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,11 +54,13 @@ public class MqttPlugin
     static final String MQTT_USERNAME = "mqtt_username";
     static final String MQTT_PASSWORD = "mqtt_password";
     static final String MQTT_RETAIN = "mqtt_retain";
+    static final String MQTT_QOS = "mqtt_qos";
+    static final String DATA_ITEMS = "data_items";
 
     /**
      * The data collection
      */
-    HashMap<String, String> valueMap = new HashMap<>();
+    static HashMap<String, String> valueMap = new HashMap<>();
 
     SharedPreferences prefs;
     String mqtt_prefix = "";
@@ -65,11 +72,11 @@ public class MqttPlugin
     String mPassword;
     String mClientId = null;
     boolean mRetain = true;
+    int mQos = 0;
+    HashSet<String> mSelectedItems = new HashSet<>();
 
     int update_period = 30;
-
-    Timer timer;
-
+    
     /**
      * Get preference int value
      *
@@ -94,34 +101,24 @@ public class MqttPlugin
         return result;
     }
 
-    /**
-     * The task to publish current data
-     */
-    TimerTask publishTask = new TimerTask()
+    Thread updateThread = new Thread()
     {
-        @Override
         public void run()
         {
-            performAction();
+            while (!interrupted())
+            {
+                try
+                {
+                    sleep(update_period * 1000);
+                }
+                catch (InterruptedException e)
+                {
+                    Log.w("Thread", "finished");
+                }
+                performAction();
+            }
         }
     };
-
-    /**
-     * Schedule cyclic MQTT updates
-     *
-     * @param updatePeriod Time in seconds between cyclic MQTT publish updates
-     */
-    void scheduleMqttUpdates(long updatePeriod)
-    {
-        // cancel old timer
-        if(timer != null)
-            timer.cancel();
-
-        // set new timer
-        timer = new Timer();
-        // schedule publishing task on timer
-        timer.schedule(publishTask, updatePeriod * 1000, updatePeriod * 1000);
-    }
 
     @Override
     public void onCreate()
@@ -130,7 +127,8 @@ public class MqttPlugin
 
         // get preferences
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // get all shred preference values
+        prefs.registerOnSharedPreferenceChangeListener(this);
+        // get all shared preference values
         onSharedPreferenceChanged(prefs, null);
 
         // set a proper client id if we have none
@@ -138,13 +136,17 @@ public class MqttPlugin
         {
             mClientId = MqttClient.generateClientId();
         }
+        updateThread.start();
     }
 
     @Override
     public void onDestroy()
     {
-        if(timer != null)
-            timer.cancel();
+        // interrupt cyclic thread
+        updateThread.interrupt();
+
+        // forget about settings changes
+        prefs.unregisterOnSharedPreferenceChangeListener(this);
 
         super.onDestroy();
     }
@@ -166,14 +168,7 @@ public class MqttPlugin
             mqtt_prefix = sharedPreferences.getString(MQTT_PREFIX, "AndrOBD/");
 
         if(key == null || UPDATE_PERIOD.equals(key))
-        {
-            int newPeriod = getPrefsInt(sharedPreferences, UPDATE_PERIOD, 30);
-            if (key == null || update_period != newPeriod)
-            {
-                update_period = newPeriod;
-                scheduleMqttUpdates(update_period);
-            }
-        }
+            update_period = getPrefsInt(sharedPreferences, UPDATE_PERIOD, 30);
 
         if(key == null || MQTT_HOSTNAME.equals(key))
             brokerHostName = sharedPreferences.getString(MQTT_HOSTNAME, "localhost");
@@ -186,9 +181,15 @@ public class MqttPlugin
 
         if(key == null || MQTT_PASSWORD.equals(key))
             mPassword = sharedPreferences.getString(MQTT_PASSWORD, "guest");
+    
+        if(key == null || MQTT_QOS.equals(key))
+            mQos   = getPrefsInt(sharedPreferences, MQTT_QOS, 0);
 
         if(key == null || MQTT_RETAIN.equals(key))
             mRetain   = sharedPreferences.getBoolean(MQTT_RETAIN, true);
+    
+        if(key == null || DATA_ITEMS.equals(key))
+            mSelectedItems = (HashSet<String>)sharedPreferences.getStringSet(DATA_ITEMS, mSelectedItems);
     }
 
     /**
@@ -229,18 +230,17 @@ public class MqttPlugin
                 // loop through data items
                 for (Map.Entry<String, String> entry : valueMap.entrySet())
                 {
-                    // get data items
-                    String topic = mqtt_prefix + entry.getKey();
-                    String value = entry.getValue();
-
-                    // set up MQTT topic / message
-                    final MqttTopic messageTopic = client.getTopic(topic);
-                    final MqttMessage message = new MqttMessage(value.getBytes());
-                    message.setRetained(mRetain);
-                    // publish topic
-                    messageTopic.publish(message);
-                    // Log message
-                    Log.d(toString(), "Published data. Topic: " + messageTopic.getName() + " Retain Flag: " + message.isRetained() + "  Message: " + message + " QoS:" + message.getQos());
+                    // if item is selected to be published ...
+                    if(mSelectedItems.contains(entry.getKey()))
+                    {
+                        // get topic and value
+                        String topic = mqtt_prefix + entry.getKey();
+                        String value = entry.getValue();
+                        // publish topic
+                        client.publish(topic, value.getBytes(), mQos, mRetain);
+                        // Log message
+                        Log.d("MQTT", "Published data. Topic: " + topic + " Message: " + value);
+                    }
                 }
             }
 
@@ -249,7 +249,7 @@ public class MqttPlugin
         }
         catch (MqttException e)
         {
-            Log.e(toString(), "Publish", e);
+            Log.e("MQTT", "Publish", e);
         }
 
     }

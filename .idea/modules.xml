@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndrOBD-Plugin.iml" filepath="$PROJECT_DIR$/AndrOBD-Plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndrOBD-Plugin.iml" filepath="$PROJECT_DIR$/AndrOBD-Plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CsvLogger/CsvLogger.iml" filepath="$PROJECT_DIR$/CsvLogger/CsvLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/CsvLogger/CsvLogger.iml" filepath="$PROJECT_DIR$/CsvLogger/CsvLogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" filepath="$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" filepath="$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PluginHost/PluginHost.iml" filepath="$PROJECT_DIR$/PluginHost/PluginHost.iml" />
       <module fileurl="file://$PROJECT_DIR$/PluginHost/PluginHost.iml" filepath="$PROJECT_DIR$/PluginHost/PluginHost.iml" />
       <module fileurl="file://$PROJECT_DIR$/../AndrOBD/plugin/plugin.iml" filepath="$PROJECT_DIR$/../AndrOBD/plugin/plugin.iml" />
     </modules>
