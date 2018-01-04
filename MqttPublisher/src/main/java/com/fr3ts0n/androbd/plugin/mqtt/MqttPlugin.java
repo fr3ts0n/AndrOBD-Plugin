@@ -65,16 +65,27 @@ public class MqttPlugin
     SharedPreferences prefs;
     String mqtt_prefix = "";
 
-    /** MQTT communication parameter */
+    /**
+     * MQTT communication parameter
+     */
+    
+    /** MQTT host name / IP address */
     String brokerHostName;
+    /** MQTT broker port number */
     int brokerPortNumber;
+    /** MQTT login name */
     String mUsername;
+    /** MQTT login password */
     String mPassword;
-    String mClientId = null;
+    /** Retain preselection value */
     boolean mRetain = true;
+    /** QOS preselection value */
     int mQos = 0;
+    /** set of items to be published */
     HashSet<String> mSelectedItems = new HashSet<>();
-
+    /** MQTT client id */
+    String mClientId = null;
+    /** Period between publishing updates */
     int update_period = 30;
     
     /**
@@ -100,23 +111,28 @@ public class MqttPlugin
         }
         return result;
     }
-
+    
+    /**
+     * Working thread for cyclic publishing updates
+     */
     Thread updateThread = new Thread()
     {
         public void run()
         {
+            Log.i("Thread", "started");
             while (!interrupted())
             {
                 try
                 {
                     sleep(update_period * 1000);
+                    Log.i("Thread", "Publish data");
+                    performAction();
                 }
                 catch (InterruptedException e)
                 {
-                    Log.w("Thread", "finished");
                 }
-                performAction();
             }
+            Log.i("Thread", "finished");
         }
     };
 
