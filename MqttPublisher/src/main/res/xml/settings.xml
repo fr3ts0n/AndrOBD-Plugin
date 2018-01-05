@@ -2,6 +2,33 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   android:icon="@android:drawable/ic_menu_manage"
                   android:title="@string/settings">
+    <Preference
+        android:title="@string/app_name"
+        android:summary="@string/app_version" />
+
+    <PreferenceCategory
+        android:title="@string/plugin_settings">
+
+        <MultiSelectListPreference
+            android:key="data_items"
+            android:summary="@string/data_items_sum"
+            android:title="@string/data_items"/>
+
+        <EditTextPreference
+            android:defaultValue="30"
+            android:key="update_period"
+            android:numeric="integer"
+            android:summary="@string/update_period_sum"
+            android:title="@string/update_period"/>
+
+        <EditTextPreference
+            android:defaultValue="AndrOBD/"
+            android:key="mqtt_prefix"
+            android:summary="@string/mqtt_prefix_sum"
+            android:title="@string/mqtt_prefix"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/mqtt_settings">
 
@@ -44,29 +71,6 @@
             android:key="mqtt_retain"
             android:summary="@string/mqtt_retain_sum"
             android:title="@string/mqtt_retain"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/plugin_settings">
-
-        <MultiSelectListPreference
-            android:key="data_items"
-            android:summary="@string/data_items_sum"
-            android:title="@string/data_items"/>
-
-        <EditTextPreference
-            android:defaultValue="30"
-            android:key="update_period"
-            android:numeric="integer"
-            android:summary="@string/update_period_sum"
-            android:title="@string/update_period"/>
-
-        <EditTextPreference
-            android:defaultValue="AndrOBD/"
-            android:key="mqtt_prefix"
-            android:summary="@string/mqtt_prefix_sum"
-            android:title="@string/mqtt_prefix"/>
 
     </PreferenceCategory>
 
