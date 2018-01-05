@@ -19,13 +19,14 @@ public class SettingsActivity extends PreferenceActivity
     }
     
     /**
-     * Initialize data item selection from currently collected data items
+     * Initialize selection of data items to be published
+     * from list of data items currently known
      */
     void initItemSelection()
     {
-        // get collected data items from valueMap
-        CharSequence[] items = new CharSequence[MqttPlugin.valueMap.size()];
-        items = MqttPlugin.valueMap.keySet().toArray(items);
+        // get collected data items from set of known data items
+        CharSequence[] items = new CharSequence[MqttPlugin.mKnownItems.size()];
+        items = MqttPlugin.mKnownItems.toArray(items);
         // sort array to make it readable
         Arrays.sort(items, new Comparator<CharSequence>()
         {
@@ -37,7 +38,7 @@ public class SettingsActivity extends PreferenceActivity
         });
 
         // assign list to preference selection
-        MultiSelectListPreference pref = (MultiSelectListPreference)findPreference("data_items");
+        MultiSelectListPreference pref = (MultiSelectListPreference)findPreference(MqttPlugin.ITEMS_SELECTED);
         pref.setEntries(items);
         pref.setEntryValues(items);
     }
