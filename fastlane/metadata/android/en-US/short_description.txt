@@ -1,0 +1,4 @@
+# AndrOBD-MQTTPublisher
+
+Plugin for AndrOBD to publish OBD measurements to MQTT home automation server.
+.
