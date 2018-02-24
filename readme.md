@@ -12,9 +12,6 @@ Implemented sample plugins are:
 - CsvDataLogger
 - MqttPublisher
 
-> This project refers to an external module of the AndrOBD plugin framework library, 
-  which is part of the AndrOBD repository.
-  
-> Please clone [AndrOBD **plugin branch**](https://github.com/fr3ts0n/AndrOBD/tree/plugin) parallel to this one to have the referred 
-  library sources of the plugin framework available for extension plugin development.
+You are welcome to create new, or update/extend existing plugins.
 
+Thank you for any contribution.
