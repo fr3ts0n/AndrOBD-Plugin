@@ -1,11 +1,10 @@
-.gradle
-.idea
 **/bin
-**/gen
 **/build
-**/gradle
+**/gen
+**/doc
+**/javadoc
+**/.idea
+**/.gradle
+**/*.iml
 *~
-*.bak
-*.class
 local.properties
-
