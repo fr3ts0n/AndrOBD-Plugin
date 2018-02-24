@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$/CsvLogger" />
             <option value="$PROJECT_DIR$/MqttPublisher" />
             <option value="$PROJECT_DIR$/PluginHost" />
-            <option value="$PROJECT_DIR$/../AndrOBD/plugin" />
+            <option value="$PROJECT_DIR$/plugin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
