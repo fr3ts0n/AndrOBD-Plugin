@@ -47,16 +47,16 @@
 
         <EditTextPreference
             android:defaultValue="guest"
-            android:key="username"
+            android:key="mqtt_username"
             android:summary="@string/user_name_sum"
-            android:title="@string/user_name"/>
+            android:title="@string/user_name" />
 
         <EditTextPreference
             android:defaultValue="guest"
-            android:key="password"
+            android:key="mqtt_password"
             android:password="true"
             android:summary="@string/password_sum"
-            android:title="@string/password"/>
+            android:title="@string/password" />
 
         <ListPreference
             android:defaultValue="0"
