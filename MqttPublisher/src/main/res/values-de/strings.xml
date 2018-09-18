@@ -21,4 +21,6 @@
     <string name="data_items_sum">Auswahl der Messdaten zur Publikation auf MQTT</string>
     <string name="mqtt_qos_sum">MQTT Servicequalität (0-2)</string>
     <string name="mqtt_qos">MQTT Qos</string>
+    <string name="mqtt_protocol">MQTT Protokoll</string>
+    <string name="mqtt_protocol_sum">Transportprotokoll für MQTT-Verbindung</string>
 </resources>

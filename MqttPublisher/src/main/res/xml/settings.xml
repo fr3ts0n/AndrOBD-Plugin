@@ -32,6 +32,14 @@
     <PreferenceCategory
         android:title="@string/mqtt_settings">
 
+        <ListPreference
+            android:defaultValue="@string/mqtt_prot_tcp"
+            android:entries="@array/mqtt_prot"
+            android:entryValues="@array/mqtt_prot"
+            android:key="mqtt_protocol"
+            android:summary="@string/mqtt_protocol_sum"
+            android:title="@string/mqtt_protocol"/>
+
         <EditTextPreference
             android:defaultValue="localhost"
             android:key="mqtt_hostname"

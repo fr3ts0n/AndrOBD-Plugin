@@ -43,6 +43,7 @@ public class MqttPlugin
 	 */
 	static final String MQTT_PREFIX = "mqtt_prefix";
 	static final String UPDATE_PERIOD = "update_period";
+	static final String MQTT_PROTOCOL = "mqtt_protocol";
 	static final String MQTT_HOSTNAME = "mqtt_hostname";
 	static final String MQTT_PORT = "mqtt_port";
 	static final String MQTT_USERNAME = "mqtt_username";
@@ -55,15 +56,19 @@ public class MqttPlugin
 	/**
 	 * The data collection
 	 */
-	static HashMap<String, String> valueMap = new HashMap<>();
+	static final HashMap<String, String> valueMap = new HashMap<>();
 	
 	SharedPreferences prefs;
 	String mqtt_prefix = "";
 	
-	/**
-	 * MQTT communication parameter
+	/*
+	  MQTT communication parameter
 	 */
 	
+	/**
+	 * MQTT protocol ( tcp:// | ssl:// )
+	 */
+	String brokerProtocol;
 	/**
 	 * MQTT host name / IP address
 	 */
@@ -145,7 +150,7 @@ public class MqttPlugin
 					performAction();
 				}
 			}
-			catch (InterruptedException e)
+			catch (InterruptedException ignored)
 			{
 			}
 			Log.i("Thread", "finished");
@@ -202,6 +207,9 @@ public class MqttPlugin
 		if (key == null || UPDATE_PERIOD.equals(key))
 		{ update_period = getPrefsInt(sharedPreferences, UPDATE_PERIOD, 30); }
 		
+		if (key == null || MQTT_PROTOCOL.equals(key))
+		{ brokerProtocol = sharedPreferences.getString(MQTT_PROTOCOL, getString(R.string.mqtt_prot_tcp)); }
+		
 		if (key == null || MQTT_HOSTNAME.equals(key))
 		{ brokerHostName = sharedPreferences.getString(MQTT_HOSTNAME, "localhost"); }
 		
@@ -254,10 +262,12 @@ public class MqttPlugin
 		if (valueMap.isEmpty()) { return; }
 		
 		// set URL
-		final String BROKER_URL = "tcp://" + brokerHostName + ":" + brokerPortNumber;
+		final String BROKER_URL = brokerProtocol + brokerHostName + ":" + brokerPortNumber;
 		
 		try
 		{
+			Log.i("MQTT", "Connect: " + BROKER_URL);
+			
 			client = new MqttClient(BROKER_URL, mClientId, new MemoryPersistence());
 			final MqttConnectOptions options = new MqttConnectOptions();
 			if (mUsername != null && !mUsername.trim().equals(""))
@@ -314,6 +324,7 @@ public class MqttPlugin
 	public void onDataListUpdate(String csvString)
 	{
 		// append unknown items to list of known items
+		//noinspection SynchronizeOnNonFinalField
 		synchronized (mKnownItems)
 		{
 			for (String csvLine : csvString.split("\n"))

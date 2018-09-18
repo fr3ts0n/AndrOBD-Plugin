@@ -26,4 +26,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="mqtt_protocol">MQTT protocol</string>
+    <string name="mqtt_protocol_sum">Transport protocol to connect MQTT broker</string>
+    <string name="mqtt_prot_tcp" translatable="false">tcp://</string>
+    <string name="mqtt_prot_ssl" translatable="false">ssl://</string>
+    <string-array name="mqtt_prot">
+        <item>@string/mqtt_prot_tcp</item>
+        <item>@string/mqtt_prot_ssl</item>
+    </string-array>
 </resources>
