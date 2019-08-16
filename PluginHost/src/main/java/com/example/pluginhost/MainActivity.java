@@ -1,5 +1,6 @@
 package com.example.pluginhost;
 
+import com.fr3ts0n.androbd.plugin.Plugin;
 import com.fr3ts0n.androbd.plugin.mgr.PluginManager;
 
 import java.util.Timer;
@@ -9,7 +10,9 @@ import java.util.TimerTask;
  * Created by erwin on 26.12.17.
  */
 
-public class MainActivity extends PluginManager
+public class MainActivity
+        extends PluginManager
+        implements Plugin.DataReceiver
 {
     Timer timer;
 

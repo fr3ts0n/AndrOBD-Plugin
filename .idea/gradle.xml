@@ -3,12 +3,16 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT" />
+        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/CsvLogger" />
+            <option value="$PROJECT_DIR$/GpsProvider" />
             <option value="$PROJECT_DIR$/MqttPublisher" />
             <option value="$PROJECT_DIR$/PluginHost" />
             <option value="$PROJECT_DIR$/plugin" />
