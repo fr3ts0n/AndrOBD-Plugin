@@ -44,4 +44,16 @@ public class MainActivity extends PluginManager
         timer.cancel();
         super.onStop();
     }
+
+    @Override
+    public void onDataListUpdate(String csvString)
+    {
+        // ToDo: Handle data list reception
+    }
+
+    @Override
+    public void onDataUpdate(String key, String value)
+    {
+        // ToDo: Handle data updates
+    }
 }

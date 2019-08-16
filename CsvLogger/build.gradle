@@ -1,17 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.csv'
         minSdkVersion 15
-        targetSdkVersion 16
+        targetSdkVersion 25
         versionCode 10000
         versionName 'V1.0.0'
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     applicationVariants.all { variant ->
@@ -28,8 +25,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility '1.7'
+        targetCompatibility '1.7'
     }
 
     lintOptions {
