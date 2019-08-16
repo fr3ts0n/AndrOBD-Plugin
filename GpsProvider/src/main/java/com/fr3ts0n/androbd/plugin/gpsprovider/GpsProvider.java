@@ -16,29 +16,27 @@ import com.fr3ts0n.androbd.plugin.Plugin;
 import com.fr3ts0n.androbd.plugin.PluginInfo;
 
 public class GpsProvider
-	extends Plugin
-	implements
-	LocationListener,
+		extends Plugin
+		implements
+		LocationListener,
 		Plugin.DataProvider,
 		Plugin.ConfigurationHandler,
-		Plugin.ActionHandler
-{
+		Plugin.ActionHandler {
 	// System Location Manager
 	LocationManager locationManager;
 
 	static final PluginInfo myInfo = new PluginInfo("GpsProvider",
-		GpsProvider.class,
-		"AndrOBD GPS provider",
-		"Copyright (C) 2018 by fr3ts0n",
-		"GPLV3+",
-		"https://github.com/fr3ts0n/AndrOBD-Plugin"
+			GpsProvider.class,
+			"AndrOBD GPS provider",
+			"Copyright (C) 2018 by fr3ts0n",
+			"GPLV3+",
+			"https://github.com/fr3ts0n/AndrOBD-Plugin"
 	);
 
 	/**
 	 * GPS data fields to be sent
 	 */
-	public enum GpsField
-	{
+	public enum GpsField {
 		GPS_LATITUDE("°", 0, 360),
 		GPS_LONGITUDE("°", 0, 360),
 		GPS_ALTITUDE("m", 0, 8848),
@@ -49,18 +47,15 @@ public class GpsProvider
 		private double min;
 		private double max;
 
-		GpsField(String _units, double _min, double _max)
-		{
+		GpsField(String _units, double _min, double _max) {
 			units = _units;
 			min = _min;
 			max = _max;
 		}
 
-		public static String toCsv()
-		{
+		public static String toCsv() {
 			StringBuilder result = new StringBuilder(new String());
-			for (GpsField field : values())
-			{
+			for (GpsField field : values()) {
 				result.append(field.name()).append(";");
 				result.append(field.name()).append(";");
 				result.append(field.min).append(";");
@@ -75,68 +70,54 @@ public class GpsProvider
 	boolean headerSent = false;
 
 	@Override
-	public void onCreate()
-	{
+	public void onCreate() {
 		super.onCreate();
 
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		// check permissions
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-		{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 			if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
 					PackageManager.PERMISSION_GRANTED &&
 					checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) !=
-							PackageManager.PERMISSION_GRANTED)
-			{
+							PackageManager.PERMISSION_GRANTED) {
 				Log.e(getPackageName(), "Location permissions missing");
 				return;
 			}
 		}
 		// Register the listener with the Location Manager to receive location updates
-		try
-		{
+		try {
 			locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-		}
-			catch(Exception ex)
-		{
+		} catch (Exception ex) {
 			Log.e(getPackageName(), ex.toString());
 		}
-		try
-		{
+		try {
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-		}
-		catch(Exception ex)
-		{
+		} catch (Exception ex) {
 			Log.e(getPackageName(), ex.toString());
 		}
 	}
-	
+
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		locationManager.removeUpdates(this);
 		super.onDestroy();
 	}
-	
+
 	@Override
-	public PluginInfo getPluginInfo()
-	{
+	public PluginInfo getPluginInfo() {
 		return myInfo;
 	}
 
 	@Override
-	public void handleIdentify(Context context, Intent intent)
-	{
+	public void handleIdentify(Context context, Intent intent) {
 		super.handleIdentify(context, intent);
 		performAction();
 	}
 
 	@Override
-	public void sendDataList(String csvData)
-	{
+	public void sendDataList(String csvData) {
 		// If plugin is enabled and feature DATA is supported
-		if (!headerSent)
-		{
+		if (!headerSent) {
 			Intent intent = new Intent(Plugin.DATALIST);
 			intent.addCategory(Plugin.RESPONSE);
 
@@ -150,8 +131,7 @@ public class GpsProvider
 	}
 
 	@Override
-	public void sendDataUpdate(String key, String value)
-	{
+	public void sendDataUpdate(String key, String value) {
 		// If feature DATA is supported
 		Intent intent = new Intent(Plugin.DATA);
 		intent.addCategory(Plugin.RESPONSE);
@@ -161,63 +141,78 @@ public class GpsProvider
 		Log.d(toString(), ">DATA: " + intent);
 		getBaseContext().sendBroadcast(intent);
 	}
-	
+
 	@Override
-	public void performConfigure()
-	{
+	public void performConfigure() {
 		headerSent = false;
 
 		Intent cfgIntent = new Intent(getApplicationContext(), SettingsActivity.class);
 		cfgIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(cfgIntent);
 	}
-	
+
 	@Override
-	public void performAction()
-	{
+	public void performAction() {
 		// ensure header will be sent again
 		headerSent = false;
 
 		// Attempt to get fine GPS location ...
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				// TODO: Consider calling
+				//    Activity#requestPermissions
+				// here to request the missing permissions, and then overriding
+				//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+				//                                          int[] grantResults)
+				// to handle the case where the user grants the permission. See the documentation
+				// for Activity#requestPermissions for more details.
+				return;
+			}
+		}
 		Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
 		// If no fine location is available ...
-		if(loc==null)
-		{
+		if (loc == null) {
 			// Attempt to get coarse network location
 			loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		}
 		// send data update
 		onLocationChanged(loc);
 	}
-	
+
 	@Override
-	public void onLocationChanged(Location location)
-	{
+	public void onLocationChanged(Location location) {
 		// ensure data list is sent
 		sendDataList(GpsField.toCsv());
 		// if a valid location is provided ...
-		if(location != null)
-		{
+		if (location != null) {
 			// send data updates of location parameters
-			Log.d(toString(),location.toString());
+			Log.i(toString(), location.toString());
 			sendDataUpdate(GpsField.GPS_LATITUDE.name(), String.valueOf(location.getLatitude()));
 			sendDataUpdate(GpsField.GPS_LONGITUDE.name(), String.valueOf(location.getLongitude()));
 			sendDataUpdate(GpsField.GPS_ALTITUDE.name(), String.valueOf(location.getAltitude()));
 			sendDataUpdate(GpsField.GPS_BEARING.name(), String.valueOf(location.getBearing()));
 			sendDataUpdate(GpsField.GPS_SPEED.name(), String.valueOf(location.getSpeed()));
-		}
-		else
-		{
-			Log.e(toString(),"NO GPS location");
+		} else {
+			Log.e(toString(), "NO GPS location");
 		}
 	}
 
 	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras)
-	{
-		if(status == LocationProvider.AVAILABLE)
-		{
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		if (status == LocationProvider.AVAILABLE) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+					// TODO: Consider calling
+					//    Activity#requestPermissions
+					// here to request the missing permissions, and then overriding
+					//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+					//                                          int[] grantResults)
+					// to handle the case where the user grants the permission. See the documentation
+					// for Activity#requestPermissions for more details.
+					return;
+				}
+			}
 			onLocationChanged(locationManager.getLastKnownLocation(provider));
 		}
 	}
