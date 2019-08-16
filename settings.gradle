@@ -1,2 +1,2 @@
-include ':MqttPublisher', ':CsvLogger', ':PluginHost', ':plugin'
+include ':MqttPublisher', ':CsvLogger', ':PluginHost', ':plugin', ':GpsProvider'
 

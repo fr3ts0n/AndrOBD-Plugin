@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GpsProvider</string>
+    <string name="LATITUDE">Latitude</string>
+    <string name="LONGITUDE">Longitude</string>
+    <string name="DEGREES">°</string>
+    <string name="ALTITUDE">Altitude</string>
+    <string name="BEARING">Bearing</string>
+    <string name="SPEED">Speed</string>
+</resources>
