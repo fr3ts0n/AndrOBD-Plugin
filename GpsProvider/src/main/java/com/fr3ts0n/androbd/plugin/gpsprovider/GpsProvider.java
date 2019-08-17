@@ -71,9 +71,6 @@ public class GpsProvider
 		}
 	}
 
-	/* remember if header was sent already */
-	boolean headerSent = false;
-
 	@Override
 	public void onCreate()
 	{
@@ -122,44 +119,6 @@ public class GpsProvider
 	public PluginInfo getPluginInfo()
 	{
 		return myInfo;
-	}
-
-	@Override
-	public void handleIdentify(Context context, Intent intent)
-	{
-		super.handleIdentify(context, intent);
-		performAction();
-	}
-
-	@Override
-	public void sendDataList(String csvData)
-	{
-		// If plugin is enabled and feature DATA is supported
-		if (!headerSent)
-		{
-			Intent intent = new Intent(Plugin.DATALIST);
-			intent.addCategory(Plugin.RESPONSE);
-
-			// attach data to intent
-			intent.putExtra(Plugin.EXTRA_DATA, csvData);
-			Log.d(toString(), ">DATALIST: " + intent);
-			getBaseContext().sendBroadcast(intent);
-			// remember that header is sent
-			headerSent = true;
-		}
-	}
-
-	@Override
-	public void sendDataUpdate(String key, String value)
-	{
-		// If feature DATA is supported
-		Intent intent = new Intent(Plugin.DATA);
-		intent.addCategory(Plugin.RESPONSE);
-
-		// attach data to intent
-		intent.putExtra(Plugin.EXTRA_DATA, String.format("%s=%s", key, value));
-		Log.d(toString(), ">DATA: " + intent);
-		getBaseContext().sendBroadcast(intent);
 	}
 
 	@Override

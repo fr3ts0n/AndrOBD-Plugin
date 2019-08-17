@@ -25,7 +25,7 @@ public class MainActivity
         // perform cyclic updates of several values for testing
         TimerTask task = new TimerTask()
         {
-            String topics[] = { "topic1", "test", "testTopic", "idontknow" };
+	        String[] topics = {"topic1", "test", "testTopic", "idontknow"};
             int value = 0;
 
             @Override
