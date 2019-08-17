@@ -58,7 +58,7 @@ public class GpsProvider
 
 		public static String toCsv()
 		{
-			StringBuilder result = new StringBuilder("");
+			StringBuilder result = new StringBuilder();
 			for (GpsField field : values())
 			{
 				result.append(field.name()).append(";");
