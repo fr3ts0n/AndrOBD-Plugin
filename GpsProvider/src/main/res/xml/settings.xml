@@ -4,7 +4,8 @@
                   android:title="@string/app_name">
     <Preference
         android:summary="@string/app_version"
-        android:title="@string/app_name"/>
+        android:title="@string/app_name"
+        android:icon="@mipmap/ic_launcher" />
 
 
 </PreferenceScreen>
