@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SensorProvider</string>
+    <string name="ACCELERATION">Acceleration</string>
+</resources>

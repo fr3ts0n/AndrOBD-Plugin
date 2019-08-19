@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/GpsProvider/GpsProvider.iml" filepath="$PROJECT_DIR$/GpsProvider/GpsProvider.iml" />
       <module fileurl="file://$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" filepath="$PROJECT_DIR$/MqttPublisher/MqttPublisher.iml" />
       <module fileurl="file://$PROJECT_DIR$/PluginHost/PluginHost.iml" filepath="$PROJECT_DIR$/PluginHost/PluginHost.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SensorProvider/SensorProvider.iml" filepath="$PROJECT_DIR$/SensorProvider/SensorProvider.iml" />
       <module fileurl="file://$PROJECT_DIR$/plugin/plugin.iml" filepath="$PROJECT_DIR$/plugin/plugin.iml" />
     </modules>
   </component>
