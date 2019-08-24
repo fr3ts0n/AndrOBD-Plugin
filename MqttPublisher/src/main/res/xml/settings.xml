@@ -49,7 +49,7 @@
         <EditTextPreference
             android:defaultValue="1883"
             android:key="mqtt_port"
-            android:numeric="integer"
+            android:inputType="numberDecimal"
             android:summary="@string/ip_port_sum"
             android:title="@string/ip_port"/>
 
@@ -62,9 +62,15 @@
         <EditTextPreference
             android:defaultValue="guest"
             android:key="mqtt_password"
-            android:password="true"
+            android:inputType="textPassword"
             android:summary="@string/password_sum"
             android:title="@string/password" />
+
+        <EditTextPreference
+            android:defaultValue="@string/app_name"
+            android:key="mqtt_clientid"
+            android:summary="@string/mqtt_clientid_sum"
+            android:title="@string/mqtt_clientid" />
 
         <ListPreference
             android:defaultValue="0"

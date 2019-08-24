@@ -23,4 +23,6 @@
     <string name="mqtt_qos">MQTT Qos</string>
     <string name="mqtt_protocol">MQTT Protokoll</string>
     <string name="mqtt_protocol_sum">Transportprotokoll für MQTT-Verbindung</string>
+    <string name="mqtt_clientid">Client ID</string>
+    <string name="mqtt_clientid_sum">Client ID zur Verbindung mit dem MQTT Broker</string>
 </resources>

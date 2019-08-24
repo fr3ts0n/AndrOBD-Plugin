@@ -48,6 +48,7 @@ public class MqttPlugin
 	static final String MQTT_PORT = "mqtt_port";
 	static final String MQTT_USERNAME = "mqtt_username";
 	static final String MQTT_PASSWORD = "mqtt_password";
+	static final String MQTT_CLIENTID = "mqtt_clientid";
 	static final String MQTT_RETAIN = "mqtt_retain";
 	static final String MQTT_QOS = "mqtt_qos";
 	static final String ITEMS_SELECTED = "data_items";
@@ -172,6 +173,8 @@ public class MqttPlugin
 		if (mClientId == null || mClientId.trim().equals(""))
 		{
 			mClientId = MqttClient.generateClientId();
+			// update preferences with generated client ID
+			prefs.edit().putString(MQTT_CLIENTID, mClientId).apply();
 		}
 		updateThread.start();
 	}
@@ -221,7 +224,11 @@ public class MqttPlugin
 		
 		if (key == null || MQTT_PASSWORD.equals(key))
 		{ mPassword = sharedPreferences.getString(MQTT_PASSWORD, "guest"); }
-		
+
+		if (key == null || MQTT_CLIENTID.equals(key))
+		{ mClientId = sharedPreferences.getString(MQTT_CLIENTID, getString(R.string.app_name))
+		                               .replaceAll("\\s+","-"); }
+
 		if (key == null || MQTT_QOS.equals(key))
 		{ mQos = getPrefsInt(sharedPreferences, MQTT_QOS, 0); }
 		
