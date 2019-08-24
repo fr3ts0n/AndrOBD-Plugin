@@ -1,5 +1,6 @@
 package com.fr3ts0n.androbd.plugin.sensorprovider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -33,7 +34,7 @@ public class SensorProvider
 	/**
 	 * Sensor data fields to be sent
 	 */
-	public enum SensorField
+	public enum DataField
 	{
 		ACC_X("m/s²", -9.81, 9.81),
 		ACC_Y("m/s²", -9.81, 9.81),
@@ -43,20 +44,21 @@ public class SensorProvider
 		private double min;
 		private double max;
 
-		SensorField(String _units, double _min, double _max)
+		DataField(String _units, double _min, double _max)
 		{
 			units = _units;
 			min = _min;
 			max = _max;
 		}
 
-		public static String toCsv()
+		public static String toCsv(Context context)
 		{
 			StringBuilder result = new StringBuilder();
-			for (SensorField field : values())
+			for (DataField field : values())
 			{
 				result.append(field.name()).append(";");
-				result.append(field.name()).append(";");
+				result.append(getStringResourceByName(context,
+				                                      field.name())).append(";");
 				result.append(field.min).append(";");
 				result.append(field.max).append(";");
 				result.append(field.units).append("\n");
@@ -113,14 +115,14 @@ public class SensorProvider
 		Log.i(toString(), event.toString());
 
 		// ensure data headers are sent
-		sendDataList(SensorField.toCsv());
+		sendDataList(DataField.toCsv(this));
 		// send data updates
 		switch(event.sensor.getType())
 		{
 			case Sensor.TYPE_ACCELEROMETER:
-				sendDataUpdate(SensorField.ACC_X.name(), String.valueOf(event.values[0]));
-				sendDataUpdate(SensorField.ACC_Y.name(), String.valueOf(event.values[1]));
-				sendDataUpdate(SensorField.ACC_Z.name(), String.valueOf(event.values[2]));
+				sendDataUpdate(DataField.ACC_X.name(), String.valueOf(event.values[0]));
+				sendDataUpdate(DataField.ACC_Y.name(), String.valueOf(event.values[1]));
+				sendDataUpdate(DataField.ACC_Z.name(), String.valueOf(event.values[2]));
 				break;
 		}
 	}

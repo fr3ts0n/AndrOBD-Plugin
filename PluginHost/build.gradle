@@ -7,14 +7,20 @@ android {
         applicationId "com.example.pluginhost"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode 10000
+        versionName '1.0.0'
     }
+
+    applicationVariants.all { variant ->
+        variant.resValue "string", "app_version", variant.versionName
+    }
+
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     productFlavors {
     }
 }

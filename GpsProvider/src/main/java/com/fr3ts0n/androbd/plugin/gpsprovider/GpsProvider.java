@@ -29,7 +29,7 @@ public class GpsProvider
 	static final PluginInfo myInfo = new PluginInfo("GpsProvider",
 	                                                GpsProvider.class,
 	                                                "AndrOBD GPS provider",
-	                                                "Copyright (C) 2018 by fr3ts0n",
+	                                                "Copyright (C) 2019 by fr3ts0n",
 	                                                "GPLV3+",
 	                                                "https://github.com/fr3ts0n/AndrOBD-Plugin"
 	);
@@ -56,13 +56,14 @@ public class GpsProvider
 			max = _max;
 		}
 
-		public static String toCsv()
+		public static String toCsv(Context context)
 		{
 			StringBuilder result = new StringBuilder();
 			for (GpsField field : values())
 			{
 				result.append(field.name()).append(";");
-				result.append(field.name()).append(";");
+				result.append(getStringResourceByName(context,
+				                                      field.name())).append(";");
 				result.append(field.min).append(";");
 				result.append(field.max).append(";");
 				result.append(field.units).append("\n");
@@ -166,7 +167,7 @@ public class GpsProvider
 	public void onLocationChanged(Location location)
 	{
 		// ensure data list is sent
-		sendDataList(GpsField.toCsv());
+		sendDataList(GpsField.toCsv(this));
 		// if a valid location is provided ...
 		if (location != null)
 		{
