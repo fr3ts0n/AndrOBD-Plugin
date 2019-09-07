@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">MqttPublisher Plugin</string>
+    <string name="app_name" translatable="false">AndrOBD MqttPublisher</string>
     <string name="settings">Plugin Settings</string>
     <string name="mqtt_settings">MQTT settings</string>
     <string name="mqtt_hostname">MQTT host name</string>

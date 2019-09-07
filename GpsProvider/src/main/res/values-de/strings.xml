@@ -5,5 +5,4 @@
     <string name="GPS_LATITUDE">GPS Breitengrad</string>
     <string name="GPS_LONGITUDE">GPS Längengrad</string>
     <string name="GPS_SPEED">GPS Geschwindigkeit</string>
-    <string name="app_name">GpsProvider Plugin</string>
 </resources>

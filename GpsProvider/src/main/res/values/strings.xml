@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GpsProvider Plugin</string>
+    <string name="app_name" translatable="false">AndrOBD GpsProvider</string>
     <string name="GPS_LATITUDE">GPS Latitude</string>
     <string name="GPS_LONGITUDE">GPS Longitude</string>
     <string name="GPS_ALTITUDE">GPS Altitude</string>

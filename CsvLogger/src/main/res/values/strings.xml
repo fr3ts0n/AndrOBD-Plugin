@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">CsvLoggerPlugin</string>
+    <string name="app_name" translatable="false">AndrOBD CsvLogger</string>
     <string name="class_name" translatable="false">CsvDataLogger</string>
 </resources>

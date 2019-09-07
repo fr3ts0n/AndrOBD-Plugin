@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">SensorProvider Plugin</string>
+    <string name="app_name" translatable="false">AndrOBD SensorProvider</string>
     <string name="ACC_X">X Acceleration</string>
     <string name="ACC_Y">Y Acceleration</string>
     <string name="ACC_Z">Z Acceleration</string>
