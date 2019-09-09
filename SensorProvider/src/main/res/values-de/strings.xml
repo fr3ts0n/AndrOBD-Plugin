@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SensorProvider Plugin</string>
     <string name="ACC_X">X-Beschleunigung</string>
     <string name="ACC_Y">Y-Beschleunigung</string>
     <string name="ACC_Z">Z-Beschleunigung</string>
