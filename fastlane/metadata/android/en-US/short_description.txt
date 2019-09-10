@@ -1,4 +1,22 @@
-# AndrOBD-MQTTPublisher
+# AndrOBD plugins
 
-Plugin for AndrOBD to publish OBD measurements to MQTT home automation server.
+AndrOBD plugins are extension apps to the AndrOBD OBD diagnostic app.
+
+Following plugins to AndrOBD are currently available:
+
+
+## AndrOBD MQTTPublisher
+
+Plugin extension for AndrOBD to publish OBD measurements to MQTT home automation server.
+
+
+## AndrOBD GpsProvider
+
+Plugin extension for AndrOBD to provide mobile device's GPS data to AndrOBD
+
+
+## AndrOBD SensorProvider
+
+Plugin extension for AndrOBD to provide mobile device's sensor data to AndrOBD
+
 .

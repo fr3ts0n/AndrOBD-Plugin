@@ -1,7 +1,19 @@
-# AndrOBD-MQTTPublisher
-AndrOBD extension plugin to allow publication of OBD measurements to a MQTT home automation server.
+AndrOBD plugins
+===============
 
-## Functionality
+AndrOBD plugins are extension apps to the AndrOBD OBD diagnostic app.
+
+These extensions may provide connectability to external networks or data providers, 
+and share / exchange data with these.
+
+AndrOBD MQTTPublisher
+=====================
+
+Plugin extension for AndrOBD to allow publication of OBD measurements to a MQTT home automation server.
+
+Functionality
+-------------
+
 - The AndrOBD MQTT publisher published OBD vehicle data gathered from AndrOBD to a configurable MQTT server.
 - The extension connects to a single MQTT message broker as a publishing client using existing network connection.
 - All AndrOBD data items which are selected for display/update can be selected to be published to MQTT.
@@ -10,19 +22,55 @@ AndrOBD extension plugin to allow publication of OBD measurements to a MQTT home
   - The time between publications is configurable.
 - The publication may also be triggered manually fromout the host application.
 
-### Configuration
+Configuration
+-------------
+
 Following generic parameters for publication shall be configurable:
 
-#### MQTT parameters
-- Host Name / IP address
-- Port number
-- User Name
-- Password
-- MQTT message prefix
+- MQTT parameters
+  - Host Name / IP address
+  - Port number
+  - User Name
+  - Password
+  - MQTT message prefix
 
-#### Update parameters
-- Update cycle time [s]
-- OBD data items
-  - Selection of subset of AndrOBD data items for display.
+- Update parameters
+  - Update cycle time [s]
+  - OBD data items
+    - Selection of subset of AndrOBD data items for display.
+
+
+AndrOBD GpsProvider
+===================
+
+Plugin extension for AndrOBD to provide mobile device's GPS data to AndrOBD
+
+Functionality
+-------------
+
+- The AndrOBD GpsProvider provides GPS data of the mobile to the AndrOBD app
+- GPS data can be displayed, recorded, charted, stored, loaded together with all other OBD measurements
+
+Configuration
+-------------
+
+- No configuration needed
+
+
+AndrOBD SensorProvider
+======================
+
+Plugin extension for AndrOBD to provide mobile device's sensor data to AndrOBD
+
+Functionality
+-------------
+
+- The AndrOBD SensorProvider provides accelerometer sensor data of the mobile to the AndrOBD app
+- Sensor data can be displayed, recorded, charted, stored, loaded together with all other OBD measurements
+
+Configuration
+-------------
+
+- No configuration needed
 
 .
