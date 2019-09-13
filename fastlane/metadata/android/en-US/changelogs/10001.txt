@@ -1,0 +1,8 @@
+V1.0.1
+------
+
+Bugfixes:
+* Fix #5 Use correct settings for login credentials ( Thanks to @oroce for his pull request )
+* Fix #4 Allow selection of tcp / ssl protocol for MQTT broker connection
+
+.
