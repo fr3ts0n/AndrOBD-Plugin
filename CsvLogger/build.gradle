@@ -6,9 +6,9 @@ android {
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.csv'
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 10000
-        versionName 'V1.0.0'
+        targetSdkVersion 28
+        versionCode 10003
+        versionName 'V1.0.3'
     }
 
     applicationVariants.all { variant ->
