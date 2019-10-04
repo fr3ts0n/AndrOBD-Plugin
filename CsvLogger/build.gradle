@@ -7,8 +7,8 @@ android {
         applicationId 'com.fr3ts0n.androbd.plugin.csv'
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 10003
-        versionName 'V1.0.3'
+        versionCode 10004
+        versionName 'V1.0.4'
     }
 
     applicationVariants.all { variant ->

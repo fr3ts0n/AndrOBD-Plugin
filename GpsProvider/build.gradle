@@ -5,11 +5,11 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.gpsprovider'
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
-        versionCode 10003
-        versionName 'V1.0.3'
+        versionCode 10004
+        versionName 'V1.0.4'
     }
 
     applicationVariants.all { variant ->
