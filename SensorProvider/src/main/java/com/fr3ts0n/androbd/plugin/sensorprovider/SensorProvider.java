@@ -21,7 +21,6 @@ public class SensorProvider
 {
 	// System Sensor Manager
 	private SensorManager mSensorManager;
-	private Sensor mAccelerometer;
 
 	static final PluginInfo myInfo = new PluginInfo("SensorProvider",
 	                                                SensorProvider.class,
@@ -74,7 +73,7 @@ public class SensorProvider
 		// get sensor manager
 		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 		// get acceleration sensor
-		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 		// register change listener
 		if(mAccelerometer != null)
 			mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
