@@ -2,9 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fr3ts0n.androbd.plugin.sensorprovider">
 
-    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
-    <uses-feature android:name="android.hardware.SensorEvent" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
