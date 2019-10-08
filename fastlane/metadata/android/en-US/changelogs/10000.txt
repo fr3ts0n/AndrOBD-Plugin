@@ -1,8 +1,0 @@
-AndrOBD-MQTTPublisher
-=====================
-
-V1.0.0
-------
-* 1st implementation of MQTT plugin
-
-.

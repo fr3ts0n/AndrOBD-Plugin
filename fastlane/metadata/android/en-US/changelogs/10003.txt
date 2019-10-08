@@ -1,7 +1,0 @@
-V1.0.3
-------
-* Fix #7: Correction MQTT to use persistent client ID
-* Add AndrOBD GpsProvider
-* Add AndrOBD SensorProvider
-
-.
