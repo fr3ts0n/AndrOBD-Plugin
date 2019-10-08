@@ -6,8 +6,7 @@ android {
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.sensorprovider'
         minSdkVersion 15
-        targetSdkVersion 28
-        vectorDrawables.useSupportLibrary = true
+        targetSdkVersion 25
         versionCode 10004
         versionName 'V1.0.4'
     }

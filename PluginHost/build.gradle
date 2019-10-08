@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "com.example.pluginhost"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 25
         versionCode 10004
         versionName '1.0.4'
     }
