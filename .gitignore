@@ -5,6 +5,11 @@
 **/javadoc
 **/.idea
 **/.gradle
+**/.classpath
+**/.project
+**/.settings
+**/.vscode
+**/gradle
 **/*.iml
-*~
 local.properties
+*~
