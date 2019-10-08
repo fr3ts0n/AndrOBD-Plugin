@@ -1,0 +1,1 @@
+Plugin extension for AndrOBD to provide mobile device's GPS data to AndrOBD

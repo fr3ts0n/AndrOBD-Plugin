@@ -1,0 +1,15 @@
+AndrOBD SensorProvider
+======================
+
+Plugin extension for AndrOBD to provide mobile device's accelerometer sensor data to AndrOBD
+
+Functionality
+-------------
+
+- The AndrOBD SensorProvider provides accelerometer sensor data of the mobile to the AndrOBD app
+- Sensor data can be displayed, recorded, charted, stored, loaded together with all other OBD measurements
+
+Configuration
+-------------
+
+- No configuration needed
