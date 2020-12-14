@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.mqtt'
         minSdkVersion 15
@@ -32,6 +31,6 @@ android {
 }
 
 dependencies {
-    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.2'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
     implementation project(':plugin')
 }
