@@ -8,6 +8,11 @@ android {
         targetSdkVersion 25
         versionCode 10004
         versionName '1.0.4'
+
+        lintOptions {
+            // Override lint error on targetSdkVersion
+            abortOnError false
+        }
     }
 
     applicationVariants.all { variant ->
