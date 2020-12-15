@@ -10,7 +10,6 @@
 **/.settings
 **/.directory
 **/.vscode
-**/gradle
 **/*.iml
 local.properties
 *~
