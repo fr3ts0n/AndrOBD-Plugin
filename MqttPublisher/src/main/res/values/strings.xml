@@ -30,10 +30,14 @@
     <string name="mqtt_protocol_sum">Transport protocol to connect MQTT broker</string>
     <string name="mqtt_prot_tcp" translatable="false">tcp://</string>
     <string name="mqtt_prot_ssl" translatable="false">ssl://</string>
+    <string name="mqtt_prot_ws" translatable="false">ws://</string>
+    <string name="mqtt_prot_wss" translatable="false">wss://</string>
     <string name="mqtt_clientid">Client ID</string>
     <string name="mqtt_clientid_sum">Client id to be used for MQTT broker connection</string>
     <string-array name="mqtt_prot">
         <item>@string/mqtt_prot_tcp</item>
         <item>@string/mqtt_prot_ssl</item>
+        <item>@string/mqtt_prot_ws</item>
+        <item>@string/mqtt_prot_wss</item>        
     </string-array>
 </resources>
