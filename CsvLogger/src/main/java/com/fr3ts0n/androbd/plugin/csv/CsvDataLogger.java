@@ -1,6 +1,16 @@
 package com.fr3ts0n.androbd.plugin.csv;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.os.Build;
+import android.os.Handler;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.fr3ts0n.androbd.plugin.Plugin;
 import com.fr3ts0n.androbd.plugin.PluginInfo;
@@ -22,20 +32,50 @@ public class CsvDataLogger
 
     static final String TAG = "CsvDataLogger";
     static final int MIN_ROW_TIMEOUT = 100;      // minimum time between rows of data
-    static final int MAX_SEGMENT_TIMEOUT = 3000;    // maximum time before flushing a segment
+    static final int MAX_SEGMENT_TIMEOUT = 10000;    // maximum time before flushing a segment
+    static final int AUTOMATIC_PAUSE = 60000;       // stop recording after this length of time since the last data point
+
+    private static final int NOTIFICATION_ID = 3433;    // Notification ID to update and clear it
+    public static final String HOST_PACKAGE = "com.fr3ts0n.ecu.gui.androbd";
 
     static final PluginInfo myInfo = new PluginInfo( "CsvDataLogger",
                                                      CsvDataLogger.class,
                                                      "Log all measurements to CSV file",
-                                                     "Copyright (C) 2017 by fr3ts0n",
+                                                     "Copyright (C) 2021 by fr3ts0n",
                                                      "GPLV3+",
                                                      "https://github.com/fr3ts0n/AndrOBD"
                                                    );
 
+    private Handler handler;
     private CsvWriterThread writer;
     private CsvData segment;
     private long lastSaved;
     private long lastWritten;
+
+    private final Runnable automaticTimer = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            // check if we need to flush the segment after a timeout
+            if (lastWritten + MAX_SEGMENT_TIMEOUT < System.currentTimeMillis())
+            {
+                writeSegment();
+            }
+
+            showNotification();
+
+            if (lastWritten + AUTOMATIC_PAUSE < System.currentTimeMillis())
+            {
+                stopRecording();
+            }
+
+            if (writer != null)
+            {
+                handler.postDelayed(automaticTimer, 1000);
+            }
+        }
+    };
 
     /**
      * Default constructor
@@ -49,8 +89,7 @@ public class CsvDataLogger
     @Override
     public void onCreate() {
         super.onCreate();
-        writer = new CsvWriterThread(getApplicationContext().getExternalFilesDir(null));
-        writer.start();
+        handler = new Handler();
     }
 
     /**
@@ -68,7 +107,13 @@ public class CsvDataLogger
     @Override
     public void performAction()
     {
-
+        if (writer == null)
+        {
+            startRecording();
+        } else
+        {
+            stopRecording();
+        }
     }
 
     /**
@@ -83,10 +128,99 @@ public class CsvDataLogger
         startActivity(intent);
     }
 
+    private void startRecording()
+    {
+        Log.i(TAG, "Starting recording");
+        writer = new CsvWriterThread(getApplicationContext().getExternalFilesDir(null));
+        writer.start();
+        lastSaved = System.currentTimeMillis();
+        lastWritten = System.currentTimeMillis();
+
+        showNotification();
+
+        ViewModel.isRecording = true;
+        ViewModel.countDataPoints = 0;
+        ViewModel.countDataRows = 0;
+        handler.postDelayed(automaticTimer, 1000);
+
+        Toast.makeText(getApplicationContext(), R.string.btn_start_recording, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showNotification()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannelManager.createNotificationChannel(getApplicationContext());
+        }
+
+        if (!ViewModel.isRecording)
+        {
+            return;
+        }
+
+        Notification.Builder notificationBuilder = new Notification.Builder(this)
+                .setOngoing(true)
+                .setContentTitle(getText(R.string.lbl_notification_title))
+                .setContentText(getString(R.string.lbl_notification_text, ViewModel.countDataPoints, ViewModel.countDataRows))
+                .setSmallIcon(R.drawable.ic_coin)
+                .setPriority(Notification.PRIORITY_DEFAULT);
+
+        Intent pendingIntent = new Intent(Intent.ACTION_MAIN)
+                .addCategory(Intent.CATEGORY_LAUNCHER)
+                .setPackage(HOST_PACKAGE)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        List<ResolveInfo> results = getPackageManager().queryIntentActivities(pendingIntent, 0);
+        if (results.size() > 0)
+        {
+            ResolveInfo result = results.get(0);
+            PendingIntent pendingClickIntent = PendingIntent.getActivity(getApplicationContext(),
+                    15,
+                    pendingIntent.setComponent(new ComponentName(result.activityInfo.packageName, result.activityInfo.name)),
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.setContentIntent(pendingClickIntent);
+        }
+
+        PendingIntent pauseIntent = PendingIntent.getService(getApplicationContext(),
+                20,
+                new Intent(ACTION)
+                        .setComponent(new ComponentName(getApplicationContext(), CsvDataLogger.class))
+                        .putExtra("CLASS", this.getClass().getCanonicalName()),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.ic_coin,
+                getText(R.string.btn_stop_recording),
+                pauseIntent);
+
+        Notification notification = notificationBuilder.build();
+        ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(NOTIFICATION_ID, notification);
+    }
+
+    private void hideNotification()
+    {
+        ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
+    }
+
+    private void stopRecording()
+    {
+        Log.i(TAG, "Stopping recording");
+        if (writer != null)
+        {
+            writer.close();
+            writer.quitSafely();
+            writer = null;
+        }
+
+        ViewModel.isRecording = false;
+        hideNotification();
+
+        Toast.makeText(getApplicationContext(), R.string.btn_stop_recording, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Handle data list update.
+     * If this happens while paused, changes the CsvData's columns to use the new layout
      *
-     * @param csvString CSV data string in format key;value
+     * @param csvString
+     * CSV data string in format key;description;min;max;units.
+     * One line per data item
      */
     @Override
     public void onDataListUpdate(String csvString)
@@ -116,29 +250,33 @@ public class CsvDataLogger
     public void onDataUpdate(String key, String value)
     {
         segment.setData(key, value);
+        ViewModel.countDataPoints += 1;
 
-        if (lastSaved + MIN_ROW_TIMEOUT < System.currentTimeMillis()) {
-            segment.saveRow();
-            lastSaved = System.currentTimeMillis();
-        }
+        if (writer != null)
+        {
+            if (lastSaved + MIN_ROW_TIMEOUT < System.currentTimeMillis())
+            {
+                segment.saveRow();
+                lastSaved = System.currentTimeMillis();
+                ViewModel.countDataRows += 1;
+            }
 
-        if (segment.size() > 1000) {
-            writeSegment();
-        }
-
-        if (lastWritten == 0) {
-            lastWritten = System.currentTimeMillis();
-        }
-        if (lastWritten + MAX_SEGMENT_TIMEOUT < System.currentTimeMillis()) {
-            writeSegment();
+            if (segment.size() > 1000)
+            {
+                writeSegment();
+            }
         }
     }
 
-    private void writeSegment() {
-        CsvData previous = segment;
-        segment = new CsvData(previous);
-        writer.write(previous);
-        lastWritten = System.currentTimeMillis();
+    private void writeSegment()
+    {
+        if (writer != null && segment.size() > 0)
+        {
+            CsvData previous = segment;
+            segment = new CsvData(previous);
+            writer.write(previous);
+            lastWritten = System.currentTimeMillis();
+        }
     }
 
     @Override
@@ -146,12 +284,13 @@ public class CsvDataLogger
     {
         super.onDestroy();
 
-        if (segment.size() > 0) {
+        if (writer != null && segment.size() > 0)
+        {
             CsvData previous = segment;
             segment = new CsvData();        // forget the previous columns, we are shutting down
             writer.write(previous);
-            writer.close();
-            writer.quitSafely();
         }
+
+        stopRecording();
     }
 }

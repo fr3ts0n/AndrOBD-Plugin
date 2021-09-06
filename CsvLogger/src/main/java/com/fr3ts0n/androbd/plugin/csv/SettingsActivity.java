@@ -24,6 +24,6 @@ public class SettingsActivity extends Activity
 
     private void redraw()
     {
-        ((TextView) findViewById(R.id.txt_isActive)).setText(Boolean.toString(ViewModel.isActive));
+        ((TextView) findViewById(R.id.txt_isActive)).setText(Boolean.toString(ViewModel.isRecording));
     }
 }
