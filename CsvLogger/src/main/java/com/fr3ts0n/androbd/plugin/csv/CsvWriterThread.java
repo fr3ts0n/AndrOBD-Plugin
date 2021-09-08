@@ -29,6 +29,7 @@ public class CsvWriterThread extends HandlerThread
     private Handler handler;
 
     private File path;
+    private File outputFile;
     private SimpleDateFormat timestampFormatter;
     private OutputStreamWriter writer;
     private boolean alreadyLoggedError;
@@ -122,7 +123,17 @@ public class CsvWriterThread extends HandlerThread
         String rfcTimestamp = timestampFormatter.format(timestamp);
         String filename = "androbd_" + rfcTimestamp + ".csv";
         File destination = new File(path, filename);
+        this.outputFile = destination;
         return new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(destination)));
+    }
+
+    public String getFilename()
+    {
+        if (outputFile != null)
+        {
+            return outputFile.getName();
+        }
+        return null;
     }
 
     public boolean isOpen() {
@@ -202,6 +213,7 @@ public class CsvWriterThread extends HandlerThread
                 Log.w(TAG, "Error while finishing writing csv data", e);
             }
             writer = null;
+            outputFile = null;
         }
     }
 

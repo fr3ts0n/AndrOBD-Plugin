@@ -27,5 +27,11 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:authorities="com.fr3ts0n.androbd.plugin.csv.provider"
+            android:name=".CsvProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        </provider>
     </application>
 </manifest>

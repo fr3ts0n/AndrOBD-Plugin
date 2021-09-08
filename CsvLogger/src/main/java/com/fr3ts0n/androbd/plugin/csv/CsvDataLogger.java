@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
@@ -193,6 +194,39 @@ public class CsvDataLogger
         ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(NOTIFICATION_ID, notification);
     }
 
+    private void showFinishedNotification(String name)
+    {
+        Notification.Builder notificationBuilder = new Notification.Builder(this)
+                .setContentTitle(getText(R.string.lbl_notification_title))
+                .setContentText(getString(R.string.lbl_notification_finished))
+                .setSmallIcon(R.drawable.ic_coin)
+                .setPriority(Notification.PRIORITY_DEFAULT);
+
+        PendingIntent pendingClickIntent = PendingIntent.getActivity(getApplicationContext(),
+                15,
+                new Intent(Intent.ACTION_MAIN)
+                        .setComponent(new ComponentName(getApplicationContext(), SettingsActivity.class))
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingClickIntent);
+
+        Uri uri = Uri.parse("content://" + getPackageName() + ".provider/" + name);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND)
+            .putExtra(Intent.EXTRA_STREAM, uri)
+            .setType("text/plain")
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        PendingIntent shareActionIntent = PendingIntent.getActivity(getApplicationContext(),
+                20,
+                Intent.createChooser(shareIntent, getString(R.string.lbl_share)),
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.ic_coin,
+                getText(R.string.btn_share_recording),
+                shareActionIntent);
+
+        Notification notification = notificationBuilder.build();
+        ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).notify(NOTIFICATION_ID, notification);
+    }
+
     private void hideNotification()
     {
         ((NotificationManager)getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
@@ -201,15 +235,22 @@ public class CsvDataLogger
     private void stopRecording()
     {
         Log.i(TAG, "Stopping recording");
+        hideNotification();
+
         if (writer != null)
         {
+            String name = writer.getFilename();
             writer.close();
             writer.quitSafely();
             writer = null;
+
+            if (name != null)
+            {
+                showFinishedNotification(name);
+            }
         }
 
         ViewModel.isRecording = false;
-        hideNotification();
 
         Toast.makeText(getApplicationContext(), R.string.btn_stop_recording, Toast.LENGTH_SHORT).show();
     }
