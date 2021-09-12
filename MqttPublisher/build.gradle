@@ -7,8 +7,8 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         vectorDrawables.useSupportLibrary = true
-        versionCode 10004
-        versionName 'V1.0.4'
+        versionCode 10100
+        versionName 'V1.1.0'
     }
 
     applicationVariants.all { variant ->
