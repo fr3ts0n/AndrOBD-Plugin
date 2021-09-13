@@ -162,7 +162,7 @@ public class CsvDataLogger
                 .setOngoing(true)
                 .setContentTitle(getText(R.string.lbl_notification_title))
                 .setContentText(getString(R.string.lbl_notification_text, ViewModel.countDataPoints, ViewModel.countDataRows))
-                .setSmallIcon(R.drawable.ic_coin)
+                .setSmallIcon(R.drawable.ic_notify)
                 .setPriority(Notification.PRIORITY_DEFAULT);
 
         Intent pendingIntent = new Intent(Intent.ACTION_MAIN)
@@ -186,7 +186,7 @@ public class CsvDataLogger
                         .setComponent(new ComponentName(getApplicationContext(), CsvDataLogger.class))
                         .putExtra("CLASS", this.getClass().getCanonicalName()),
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.ic_coin,
+        notificationBuilder.addAction(R.drawable.ic_notify,
                 getText(R.string.btn_stop_recording),
                 pauseIntent);
 
@@ -219,7 +219,7 @@ public class CsvDataLogger
                 20,
                 Intent.createChooser(shareIntent, getString(R.string.lbl_share)),
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.ic_coin,
+        notificationBuilder.addAction(R.drawable.ic_notify,
                 getText(R.string.btn_share_recording),
                 shareActionIntent);
 
