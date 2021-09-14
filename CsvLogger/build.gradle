@@ -4,7 +4,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.csv'
-        minSdkVersion 19
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 10004
         versionName 'V1.0.4'

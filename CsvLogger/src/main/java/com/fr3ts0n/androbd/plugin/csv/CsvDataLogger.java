@@ -42,7 +42,7 @@ public class CsvDataLogger
     static final PluginInfo myInfo = new PluginInfo( "CsvDataLogger",
                                                      CsvDataLogger.class,
                                                      "Log all measurements to CSV file",
-                                                     "Copyright (C) 2021 by fr3ts0n",
+                                                     "Copyright (C) 2021 by hufman",
                                                      "GPLV3+",
                                                      "https://github.com/fr3ts0n/AndrOBD"
                                                    );
