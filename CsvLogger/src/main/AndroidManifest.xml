@@ -8,9 +8,16 @@
                  android:fullBackupContent="@xml/backup_descriptor"
                  android:theme="@style/AppTheme.Dark" >
 
+        <activity android:name=".SettingsActivity" />
+
         <service
             android:name=".CsvDataLogger"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fr3ts0n.androbd.plugin.IDENTIFY" />
+                <category android:name="com.fr3ts0n.androbd.plugin.REQUEST" />
+            </intent-filter>
+        </service>
 
         <receiver android:name=".CsvLoggerReceiver"
                   android:exported="true">
@@ -20,5 +27,11 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:authorities="com.fr3ts0n.androbd.plugin.csv.provider"
+            android:name=".CsvProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+        </provider>
     </application>
 </manifest>

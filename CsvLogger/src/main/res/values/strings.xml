@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name" translatable="false">AndrOBD CsvLogger</string>
     <string name="class_name" translatable="false">CsvDataLogger</string>
+    <string name="lbl_notification_channel">Recording Status</string>
+    <string name="lbl_notification_title">AndrOBD CSV Recording</string>
+    <string name="lbl_notification_text">Datapoints %1d   Rows %2d</string>
+    <string name="lbl_notification_finished">Finished recording</string>
+
+    <string name="btn_start_recording">Start Recording</string>
+    <string name="btn_stop_recording">Stop Recording</string>
+    <string name="btn_share_recording">Share Recording</string>
+
+    <string name="lbl_share">Share</string>
+    <string name="lbl_isActive">Currently recording:</string>
+    <string name="lbl_contents">Previous recordings:</string>
 </resources>
