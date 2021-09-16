@@ -6,8 +6,8 @@ android {
         applicationId "com.example.pluginhost"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 10100
-        versionName 'V1.1.0'
+        versionCode 10101
+        versionName 'V1.1.1'
 
         lintOptions {
             // Override lint error on targetSdkVersion
