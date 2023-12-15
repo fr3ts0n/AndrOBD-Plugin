@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdk 34
     defaultConfig {
         applicationId 'com.fr3ts0n.androbd.plugin.sensorprovider'
         minSdkVersion 15
@@ -10,7 +10,7 @@ android {
         versionName 'V1.1.1'
     }
 
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         variant.resValue "string", "app_version", variant.versionName
     }
 
@@ -21,11 +21,11 @@ android {
     }
 
 
-    lintOptions {
-        abortOnError false
-    }
-
     productFlavors {
+    }
+    namespace 'com.fr3ts0n.androbd.plugin.sensorprovider'
+    lint {
+        abortOnError false
     }
 }
 

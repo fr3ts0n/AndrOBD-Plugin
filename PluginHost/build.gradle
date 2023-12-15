@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdk 34
     defaultConfig {
         applicationId "com.example.pluginhost"
         minSdkVersion 15
@@ -15,7 +15,7 @@ android {
         }
     }
 
-    applicationVariants.all { variant ->
+    applicationVariants.configureEach { variant ->
         variant.resValue "string", "app_version", variant.versionName
     }
 
@@ -27,6 +27,7 @@ android {
 
     productFlavors {
     }
+    namespace 'com.example.pluginhost'
 }
 
 dependencies {

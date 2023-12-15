@@ -12,7 +12,7 @@ public class SettingsActivity extends PreferenceActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.settings);
+        addPreferencesFromResource(com.fr3ts0n.androbd.plugin.R.xml.settings);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             requestPermissions(new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION,

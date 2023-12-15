@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fr3ts0n.androbd.plugin.sensorprovider">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:fullBackupContent="@xml/backup_descriptor"
         android:theme="@style/AppTheme.Dark">
 
         <receiver android:name="PluginReceiver"
@@ -22,8 +20,7 @@
                  android:exported="true"
                  android:enabled="true"/>
 
-        <activity android:name="SettingsActivity"
-            android:label="@string/app_name">
+        <activity android:name="SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>

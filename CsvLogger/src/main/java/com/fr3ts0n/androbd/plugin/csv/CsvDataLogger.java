@@ -199,7 +199,7 @@ public class CsvDataLogger
         Notification.Builder notificationBuilder = new Notification.Builder(this)
                 .setContentTitle(getText(R.string.lbl_notification_title))
                 .setContentText(getString(R.string.lbl_notification_finished))
-                .setSmallIcon(R.drawable.ic_coin)
+                .setSmallIcon(com.fr3ts0n.androbd.plugin.R.drawable.ic_coin)
                 .setPriority(Notification.PRIORITY_DEFAULT);
 
         PendingIntent pendingClickIntent = PendingIntent.getActivity(getApplicationContext(),
