@@ -74,9 +74,11 @@ public class SensorProvider
 		mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
 		// get acceleration sensor
 		Sensor mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-		// register change listener
+		// register change listener to approx. 3/s
 		if(mAccelerometer != null)
-			mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+			mSensorManager.registerListener(this,
+											 mAccelerometer,
+											333000);
 	}
 
 	@Override
