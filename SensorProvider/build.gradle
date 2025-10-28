@@ -6,8 +6,8 @@ android {
         applicationId 'com.fr3ts0n.androbd.plugin.sensorprovider'
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 10101
-        versionName 'V1.1.1'
+        versionCode 10102
+        versionName 'V1.1.2'
     }
 
     applicationVariants.configureEach { variant ->
