@@ -1,33 +1,32 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 34
+    namespace "com.example.pluginhost"
+    compileSdk 36
+
+    buildFeatures {
+        resValues = true
+        buildConfig = true
+    }
+
     defaultConfig {
-        applicationId "com.example.pluginhost"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 10101
-        versionName 'V1.1.1'
+        targetSdkVersion 36
+        versionCode 10102
+        versionName 'V1.1.2'
+
+        resValue "string", "app_version", versionName
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_17
+            targetCompatibility JavaVersion.VERSION_17
+        }
 
         lintOptions {
             // Override lint error on targetSdkVersion
-            abortOnError false
+            abortOnError = false
         }
     }
-
-    applicationVariants.configureEach { variant ->
-        variant.resValue "string", "app_version", variant.versionName
-    }
-
-    buildTypes {
-        release {
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    productFlavors {
-    }
-    namespace 'com.example.pluginhost'
 }
 
 dependencies {

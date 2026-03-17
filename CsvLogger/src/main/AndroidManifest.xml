@@ -30,7 +30,8 @@
             android:grantUriPermissions="true">
         </provider>
 
-        <activity android:name="SettingsActivity">
+        <activity android:name="SettingsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
